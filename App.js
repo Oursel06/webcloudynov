@@ -4,10 +4,12 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-nativ
 import { signup } from './auth_signup_password';
 import { signin } from './auth_signin_password';
 import Toast from 'react-native-root-toast';
+import { signinphonenumber } from './auth_signin_phone_number';
 
 export default function App() {
   const [email, onChangeEmail] = React.useState("");
   const [password, onChangePassword] = React.useState("");
+  const [phoneNumber, onChangePhoneNumber] = React.useState("");
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -45,6 +47,10 @@ export default function App() {
     signin(email, password);
   };
 
+  const handleSigninPhoneNumber = () => {
+    signinphonenumber(phoneNumber)
+  }
+
   return (
     <RootSiblingParent>
       <View style={styles.container}>
@@ -58,6 +64,12 @@ export default function App() {
         <TouchableOpacity style={styles.button} onPress={handleSignin}>
           <Text style={styles.buttonText}>Connexion</Text>
         </TouchableOpacity>
+        <Text>Vérifier par téléphone</Text>
+        <TextInput style={styles.input} onChangeText={onChangePhoneNumber} value={phoneNumber} secureTextEntry={true}></TextInput>
+        <TouchableOpacity style={styles.button} onPress={handleSigninPhoneNumber}>
+          <Text style={styles.buttonText}>Vérifier par téléphone</Text>
+        </TouchableOpacity>
+
       </View>
     </RootSiblingParent>
 
