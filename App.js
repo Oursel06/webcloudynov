@@ -1,20 +1,66 @@
+import { RootSiblingParent } from 'react-native-root-siblings';
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import { signup } from './auth_signup_password';
 import { signin } from './auth_signin_password';
+import Toast from 'react-native-root-toast';
 
 export default function App() {
   const [email, onChangeEmail] = React.useState("");
   const [password, onChangePassword] = React.useState("");
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePassword = (password) => {
+    const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+    return passwordRegex.test(password);
+  };
+
+  const handleSignup = () => {
+    if (!validateEmail(email)) {
+      Toast.show("Mail invalide", {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: false,
+        hideOnPress: true,
+      });
+    } else if (!validatePassword(password)) {
+      Toast.show("Le mot de passe doit contenir au moins 8 caractères avec au moins une majuscule et un chiffre", {
+        duration: Toast.durations.SHORT,
+        position: Toast.positions.BOTTOM,
+        shadow: true,
+        animation: false,
+        hideOnPress: true,
+      });
+    } else {
+      signup(email, password);
+    }
+  };
+
+  const handleSignin = () => {
+    signin(email, password);
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Email</Text>
-      <TextInput style={styles.input} onChangeText={onChangeEmail} value={email}></TextInput>
-      <TextInput>password</TextInput>
-      <TextInput style={styles.input} onChangeText={onChangePassword} value={password} secureTextEntry={true}></TextInput>
-      <Button style={styles.button} title="Inscription" onPress={() => signup(email, password)}></Button>
-      <Button style={styles.button} title="Connexion" onPress={() => signin(email, password)}></Button>
-    </View>
+    <RootSiblingParent>
+      <View style={styles.container}>
+        <Text>Email</Text>
+        <TextInput style={styles.input} onChangeText={onChangeEmail} value={email}></TextInput>
+        <Text>Mot de passe</Text>
+        <TextInput style={styles.input} onChangeText={onChangePassword} value={password} secureTextEntry={true}></TextInput>
+        <TouchableOpacity style={styles.button} onPress={handleSignup}>
+          <Text style={styles.buttonText}>Inscription</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={handleSignin}>
+          <Text style={styles.buttonText}>Connexion</Text>
+        </TouchableOpacity>
+      </View>
+    </RootSiblingParent>
+
   );
 }
 
@@ -34,10 +80,16 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   button: {
-    margin: 5,
-    padding: 5,
-    backgroundColor: '#999',
-    color: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'blue',
     borderRadius: 20,
+    height: 40,
+    width: 200,
+    margin: 5,
+  },
+  buttonText: {
+    color: '#fff',
   }
 });
+//test
