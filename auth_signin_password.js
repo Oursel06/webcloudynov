@@ -1,4 +1,5 @@
-import Toast from "react-native-root-toast";
+// import Toast from "react-native-root-toast";
+import { router } from "expo-router";
 import "./firebaseConfig";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
@@ -8,24 +9,9 @@ export const signin = (email, password) => {
         .then((userCredentials) => {
             const user = userCredentials.user;
             console.log(user);
-            Toast.show("Connexion OK !", {
-                duration: Toast.durations.SHORT,
-                position: Toast.positions.BOTTOM,
-                shadow: true,
-                animation: false,
-                hideOnPress: true,
-            });
+            router.replace('/profil');
         })
         .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            Toast.show("Identifiant ou mot de passe incorrect", {
-                duration: Toast.durations.SHORT,
-                position: Toast.positions.BOTTOM,
-                shadow: true,
-                animation: false,
-                hideOnPress: true,
-            });
-
+            console.log(error.message);
         });
 }

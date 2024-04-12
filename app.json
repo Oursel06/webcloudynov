@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "webcloudynov",
     "experiments": {
       "baseUrl": "/webcloudynov"
     },
@@ -28,6 +29,8 @@
       "package": "com.alex06.webcloudynov"
     },
     "web": {
+      "bundler": "metro",
+      "output": "static",
       "favicon": "./assets/favicon.png"
     },
     "extra": {
