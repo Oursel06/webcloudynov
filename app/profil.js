@@ -1,7 +1,7 @@
 import { RootSiblingParent } from 'react-native-root-siblings';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, onAuthStateChanged, updateProfile } from 'firebase/auth';
 
 export default function App() {
 
@@ -14,7 +14,20 @@ export default function App() {
         const photoURL = user.photoURL;
         const emailverified = user.emailVerified;
         const uid = user.uid;
+        console.log("displayName => " + displayName)
+        console.log("email => " + email)
+        console.log("photoURL => " + photoURL)
+        console.log("emailverified => " + emailverified)
+        console.log("uid => " + uid)
     }
+
+    updateProfile(auth.currentUser, {
+        displayName: "Alex06"
+    }).then(() => {
+        console.log("Profil MAJ !");
+    }).catch((error) => {
+        console.log("error => " + error);
+    });
 
     onAuthStateChanged(auth, (user) => {
         if (user) {

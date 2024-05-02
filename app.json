@@ -4,6 +4,15 @@
     "experiments": {
       "baseUrl": "/webcloudynov"
     },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "photoPermission": "L'application accède à vos photos"
+        }
+      ]
+    ],
     "name": "web-cloud-ynov",
     "slug": "web-cloud-ynov",
     "version": "1.0.0",
