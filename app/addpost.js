@@ -14,7 +14,6 @@ export default function App() {
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                console.log(user)
                 setUser(user);
             } else {
                 setUser(null);

@@ -1,6 +1,6 @@
 import { RootSiblingParent } from 'react-native-root-siblings';
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
 import { Link } from 'expo-router';
 import { signwithgithub } from '../auth_signin_popup';
 import { loginWithPhoneNumber } from '../auth_phone_signin';
@@ -31,30 +31,38 @@ export default function App() {
                 <Text>Mot de passe</Text>
                 <TextInput style={styles.input} onChangeText={onChangePassword} value={password} secureTextEntry={true}></TextInput>
                 <TouchableOpacity style={styles.button} onPress={handleSignin}>
-                    <Text style={styles.buttonText}>Connexion</Text>
+                    <View style={styles.buttonContent}>
+                        <Text style={styles.linkText}>Connexion</Text>
+                    </View>
                 </TouchableOpacity>
-
+                <br></br>
+                <Text>------------- Ou se connecter avec -------------</Text>
+                <br></br>
                 <TouchableOpacity style={styles.link} onPress={handleSigninGitHub}>
-                    <Text style={styles.linkText}>Connexion avec GitHub</Text>
+                    <View style={styles.buttonContent}>
+                        <Image source={require('../assets/github.png')} style={styles.logo} />
+                        <Text style={styles.linkText}>GitHub</Text>
+                    </View>
                 </TouchableOpacity>
                 <br></br>
                 <Text>Numéro de téléphone</Text>
                 <TextInput style={styles.input} onChangeText={onChangePhoneNumber} value={phoneNumber}></TextInput>
                 <TouchableOpacity style={styles.link} onPress={() => loginWithPhoneNumber(phoneNumber)}>
-                    <Text style={styles.linkText}>Connexion avec téléphone</Text>
+                    <View style={styles.buttonContent}>
+                        <Text style={styles.linkText}>Valider</Text>
+                    </View>
                 </TouchableOpacity>
 
                 <div id='recaptcha-container'></div>
 
-                <Text>code</Text>
+                <Text>code :</Text>
                 <TextInput style={styles.input} onChangeText={onChangeCode} value={code}></TextInput>
                 <TouchableOpacity style={styles.button} onPress={() => verifyCode(code)}>
                     <Text style={styles.buttonText}>Vérifier le code</Text>
                 </TouchableOpacity>
                 <br></br>
-                <Link style={styles.link} href="/">Retour</Link>
-            </View>
-        </RootSiblingParent>
+            </View >
+        </RootSiblingParent >
 
     );
 }
@@ -74,25 +82,30 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 10,
     },
-    button: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'blue',
-        borderRadius: 20,
-        height: 40,
-        width: 200,
-        margin: 5,
-    },
+
     link: {
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'transparent',
+        backgroundColor: 'white',
         margin: 5,
+        borderWidth: 1,
+        borderColor: '#ddd',
+        borderRadius: 5,
+        cursor: 'pointer',
     },
-    buttonText: {
-        color: '#fff',
+    buttonContent: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 10,
+    },
+    logo: {
+        width: 20,
+        height: 20,
+        marginRight: 10,
     },
     linkText: {
-        color: 'blue',
-    }
+        color: 'black',
+    },
+
 });

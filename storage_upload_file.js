@@ -1,5 +1,5 @@
 import "./firebaseConfig";
-import { getStorahed, ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 
 export const uploadToFirebase = async (uri, name, onProgress) => {
     const fetchResponse = await fetch(uri);

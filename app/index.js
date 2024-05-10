@@ -9,7 +9,6 @@ export default function App() {
     useEffect(() => {
         const fetchData = async () => {
             const data = await getPostData();
-            console.log(data);
             setPosts(data);
         }
         fetchData();
@@ -18,23 +17,24 @@ export default function App() {
     return (
         <RootSiblingParent>
             <View style={styles.container}>
-                <Text>Accueil</Text>
-                <br></br>
-                <Link style={styles.link} href="/connexion">Connexion</Link>
-                <Link style={styles.link} href="/inscription">Inscription</Link>
-                <Link style={styles.link} href="/addpost">Ajouter un post</Link>
-                <br></br>
-                {posts.map((p) => {
-                    return (
-                        <View key={p.id} style={styles.item}>
-                            <Text style={styles.itemTitle}>{p.title}</Text>
-                            <Text>{p.text}</Text>
+                <Text>Bienvenue !</Text>
+                {posts.length == 0 ?
+                    <> <Text>Vous n'avez pas de post</Text> </> :
+                    <> <Text>Liste de {posts.length} post(s)</Text>
+                        <View style={styles.listposts}>
+                            {posts.map((p) => {
+                                return (
+                                    <View key={p.id} style={styles.item}>
+                                        <Text style={styles.itemTitle}>{p.title}</Text>
+                                        <Text>{p.text}</Text>
+                                    </View>
+                                );
+                            })}
                         </View>
-                    );
-                })}
+                    </>
+                }
             </View>
         </RootSiblingParent>
-
     );
 }
 
@@ -47,6 +47,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         boxShadow: '1px 2px 5px 5px rgba(50, 50, 50, 0.1)',
+    },
+    listposts: {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        padding: '20px',
+    },
+    item: {
+        border: 'solid 1px lightgrey',
+        padding: '10px',
+        margin: '10px',
+        backgroundColor: 'whitesmoke',
+        cursor: 'pointer',
     },
     link: {
         alignItems: 'center',

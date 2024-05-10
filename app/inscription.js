@@ -31,7 +31,7 @@ export default function App() {
     return (
         <RootSiblingParent>
             <View style={styles.container}>
-                <Text>CONNEXION</Text>
+                <Text>INSCRIPTION</Text>
                 <br></br>
                 <Text>Email</Text>
                 <TextInput style={styles.input} onChangeText={onChangeEmail} value={email}></TextInput>
@@ -40,8 +40,6 @@ export default function App() {
                 <TouchableOpacity style={styles.button} onPress={handleSignup}>
                     <Text style={styles.buttonText}>Inscription</Text>
                 </TouchableOpacity>
-                <br></br>
-                <Link style={styles.link} href="/">Retour</Link>
             </View>
         </RootSiblingParent>
 
